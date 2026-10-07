@@ -1,0 +1,301 @@
+I have an existing portfolio website for my freelance website design business, “Ishii Web Studio.” I want you to MODIFY my existing portfolio. Do NOT rebuild the entire website from scratch and do NOT remove or break any existing sections, projects, links, styling, responsiveness, or functionality.
+
+I want to add a new professional section called:
+
+“Ready to Build Your Website?”
+
+Purpose:
+When a potential client likes my website demos and wants me to create a website for their business, they should be able to submit their business information, requirements, content, and files through this section.
+
+IMPORTANT:
+This is a CLIENT PROJECT INTAKE FORM, not a normal contact form.
+
+DESIGN:
+- Match the existing Ishii Web Studio portfolio design.
+- Make the section look premium, clean, trustworthy, and professional.
+- It should not look like a generic Google form.
+- Use clear sections/cards so the form does not feel overwhelming.
+- Make it fully responsive on laptop, Android, and iPhone.
+- Use good spacing and clear labels.
+- Add a short privacy note explaining that submitted information is used only for discussing and preparing the client's website project.
+- Include a clear success message after successful submission.
+- Do not use fake submission behavior.
+
+SECTION HEADING:
+
+“Ready to Build Your Website?”
+
+Supporting text:
+
+“Liked one of my website concepts? Tell me about your business and what you need. Share your content, requirements, and brand assets so I can understand your project and prepare the right website for you.”
+
+Add a short process indicator:
+
+1. Tell Me About Your Business
+2. Share Your Content
+3. Tell Me What You Need
+4. I’ll Review Your Project
+5. We’ll Discuss the Website
+
+FORM FIELDS:
+
+SECTION 1 — YOUR INFORMATION
+
+1. Full Name — required
+2. Business / Brand Name — required
+3. Email Address — required
+4. WhatsApp / Phone Number — required
+5. Country
+6. Preferred Contact Method:
+   - WhatsApp
+   - Email
+   - Phone Call
+
+SECTION 2 — ABOUT YOUR BUSINESS
+
+7. Business Type / Industry — required
+   Examples:
+   - Clothing
+   - Jewellery
+   - Restaurant
+   - Beauty Salon
+   - Perfume
+   - Real Estate
+   - Other
+
+8. Tell me about your business — required
+   Large textarea.
+
+9. What does your business offer?
+   Large textarea.
+
+10. How long has your business been operating?
+   Optional.
+
+SECTION 3 — YOUR WEBSITE
+
+11. What type of website do you need?
+   Options:
+   - Business Website
+   - Product Catalogue
+   - Restaurant Website
+   - Beauty Salon Website
+   - Portfolio Website
+   - E-commerce Website
+   - Landing Page
+   - Other
+
+12. What pages do you need?
+   Allow multiple selections:
+   - Home
+   - About
+   - Services
+   - Products
+   - Menu
+   - Gallery
+   - Contact
+   - FAQ
+   - Blog
+   - Booking
+   - Other
+
+13. Do you already have a website?
+   - Yes
+   - No
+
+14. Existing Website URL
+   Optional.
+
+15. What is the main goal of your website?
+   Options:
+   - Get more customers
+   - Showcase products/services
+   - Receive WhatsApp enquiries
+   - Receive bookings
+   - Sell products online
+   - Build brand credibility
+   - Other
+
+SECTION 4 — SOCIAL MEDIA & ONLINE PRESENCE
+
+16. Instagram URL
+17. Facebook URL
+18. TikTok URL
+19. Google Business Profile URL
+20. Other relevant links
+
+All optional.
+
+SECTION 5 — BRAND INFORMATION
+
+21. Do you already have a logo?
+   - Yes
+   - No
+
+22. Brand colors
+   Example: black and gold, pink and white, etc.
+
+23. Preferred website style
+   Options:
+   - Luxury
+   - Modern
+   - Minimal
+   - Elegant
+   - Bold
+   - Traditional
+   - Professional
+   - I’m not sure — recommend for me
+
+24. Upload your logo
+
+25. Upload brand photos/images
+
+SECTION 6 — CONTENT & FILES
+
+Allow clients to upload relevant files such as:
+- Logo
+- Product images
+- Service images
+- Menu/catalogue
+- Brand photos
+- Text/content documents
+- Price lists
+- Other relevant files
+
+Use a proper file-upload field.
+
+IMPORTANT:
+Clearly tell the client which file types are accepted and the maximum file size.
+
+Do not pretend that files are securely stored if no backend/storage service is connected.
+
+SECTION 7 — WEBSITE FEATURES
+
+Ask what features they may need:
+
+Checkboxes:
+- WhatsApp button
+- Contact form
+- Booking/appointment form
+- Google Maps
+- Instagram integration
+- Product catalogue
+- Shopping cart
+- Online payments
+- Customer orders
+- Admin panel
+- Blog
+- Newsletter
+- Other
+
+Add a note:
+
+“Some advanced features may require additional setup, third-party services, or a backend system. I’ll discuss this with you before development.”
+
+SECTION 8 — PROJECT DETAILS
+
+26. Do you have a preferred launch date?
+27. Do you already own a domain?
+   - Yes
+   - No
+   - I’m not sure
+
+28. Do you already have website hosting?
+   - Yes
+   - No
+   - I’m not sure
+
+29. Estimated budget
+   Optional dropdown:
+   - Under $100
+   - $100–$250
+   - $250–$500
+   - $500+
+   - Not sure yet
+
+30. Additional requirements / notes
+   Large textarea.
+
+FINAL CONFIRMATION:
+
+Add a checkbox:
+
+“I confirm that the information and files I provide are related to my business/project and may be used to prepare my website proposal and project.”
+
+Submit button:
+
+“Submit My Project Details”
+
+After successful submission, show:
+
+“Thank you! Your project details have been received. I’ll review your information and contact you shortly to discuss your website.”
+
+IMPORTANT TECHNICAL REQUIREMENTS:
+
+1. Do NOT create a fake form submission.
+2. Do NOT store client information in localStorage or sessionStorage.
+3. Do NOT put private client information directly into the HTML/JavaScript.
+4. Do NOT expose an admin password in frontend JavaScript.
+5. Do NOT claim that uploaded files are private/secure unless the connected backend/form service actually provides that protection.
+6. The form must actually submit to a real backend/form service once configured.
+7. Structure the code so the form endpoint/service can easily be configured later.
+8. Use environment variables or the appropriate secure configuration method for any API keys or private credentials.
+9. Never expose API keys, service credentials, or private storage credentials in frontend code.
+10. Keep the existing portfolio functionality working.
+11. Do not break the existing contact form, WhatsApp links, project links, navigation, mobile menu, or existing demos.
+12. Test the form layout on desktop, Android, and iPhone.
+13. Add proper validation for required fields.
+14. Add clear error messages if submission fails.
+15. Add a loading state while submitting.
+16. Prevent accidental duplicate submissions.
+17. Make uploaded files display clear upload progress/status where supported.
+
+FORM SERVICE INTEGRATION:
+
+Prepare the form so it can be connected to a reputable form/backend service that supports file uploads.
+
+Do not invent an API or pretend the integration is complete.
+
+If the current portfolio does not have a real backend/file-upload service configured, leave a clearly marked configuration area and explain exactly what needs to be connected before this feature is used with real clients.
+
+PRIVACY:
+
+Add a small privacy message below the form:
+
+“Your information and uploaded files are used only to understand your website project and communicate with you about your request. Please do not upload passwords, payment card information, or other highly sensitive personal information.”
+
+NAVIGATION:
+
+Add a navigation link:
+
+“Start a Project”
+
+When clicked, smoothly scroll to the new project intake section.
+
+Also add a CTA button in the portfolio's main CTA area:
+
+“Start Your Project”
+
+which scrolls to the same section.
+
+IMPORTANT:
+Keep the existing visual identity of Ishii Web Studio. The new section should look like a natural part of the existing portfolio, not a separate website.
+
+Before finishing, check for:
+- broken links
+- JavaScript errors
+- mobile responsiveness
+- iPhone/Safari layout issues
+- form validation errors
+- file upload UI problems
+- duplicate IDs
+- console errors
+- accidental changes to existing sections
+
+Finally, give me a short explanation of:
+1. What you changed
+2. Which form/file-upload service is required
+3. Exactly where I need to add the service configuration
+4. Whether the form is currently ready for real client submissions or still in demo mode
+
+Do not claim that the form is secure or functional for real client data until the actual backend/file-upload service has been connected and tested.
