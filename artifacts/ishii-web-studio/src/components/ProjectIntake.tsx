@@ -1,13 +1,10 @@
-import { useEffect, useRef, useState, type ChangeEvent, type FormEvent, type ReactNode } from 'react';
-import { ArrowRight, FileText, Paperclip, X } from 'lucide-react';
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
+import { ArrowRight, ArrowUpRight, Mail, MessageCircle } from 'lucide-react';
+import { studioContact, studioName } from '../projects';
 
 const PROJECT_INTAKE_ENDPOINT = 'https://formspree.io/f/moejelpy';
-const MAX_FILES = 10;
-const MAX_FILE_SIZE = 25 * 1024 * 1024;
-const MAX_TOTAL_SIZE = 90 * 1024 * 1024;
-const ACCEPTED_EXTENSIONS = '.jpg,.jpeg,.png,.webp,.gif,.svg,.pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.rtf,.odt,.ods';
-const ACCEPTED_TYPES = 'JPG, JPEG, PNG, WEBP, GIF, SVG, PDF, DOC, DOCX, XLS, XLSX, CSV, TXT, RTF, ODT and ODS';
-const ACCEPTED_EXTENSION_SET = new Set(ACCEPTED_EXTENSIONS.split(',').map((extension) => extension.slice(1)));
+const whatsappUrl = `https://wa.me/92${studioContact.whatsapp.replace(/^0/, '')}?text=${encodeURIComponent(`Hello ${studioName}, I have submitted the project intake form and would like to send my project materials.`)}`;
+const materialsEmailUrl = `mailto:${studioContact.email}?subject=${encodeURIComponent('Website project materials')}&body=${encodeURIComponent(`Hello ${studioName},\n\nI have submitted the project intake form and would like to send my project materials.`)}`;
 
 const steps = [
   'Tell Me About Your Business',
@@ -117,13 +114,9 @@ function ChoiceGroup({
 
 export default function ProjectIntake() {
   const [form, setForm] = useState<IntakeForm>(initialForm);
-  const [files, setFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [fileError, setFileError] = useState('');
   const [status, setStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [progress, setProgress] = useState<number | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const submissionInFlight = useRef(false);
 
   useEffect(() => {
@@ -144,42 +137,6 @@ export default function ProjectIntake() {
       ...previous,
       [key]: previous[key].includes(value) ? previous[key].filter((choice) => choice !== value) : [...previous[key], value],
     }));
-  };
-
-  const addFiles = (event: ChangeEvent<HTMLInputElement>) => {
-    const picked = Array.from(event.target.files ?? []);
-    setFileError('');
-    if (picked.length) {
-      const next = [...files];
-      for (const file of picked) {
-        const extension = file.name.split('.').pop()?.toLowerCase() ?? '';
-        if (!ACCEPTED_EXTENSION_SET.has(extension)) {
-          setFileError(`${file.name}: this file type is not accepted. Allowed types: ${ACCEPTED_TYPES}.`);
-          continue;
-        }
-        if (file.size > MAX_FILE_SIZE) {
-          setFileError(`${file.name}: files must be 25 MB or smaller.`);
-          continue;
-        }
-        if (next.some((existing) => existing.name === file.name && existing.size === file.size && existing.lastModified === file.lastModified)) continue;
-        if (next.length >= MAX_FILES) {
-          setFileError(`You can attach up to ${MAX_FILES} files.`);
-          break;
-        }
-        if ([...next, file].reduce((total, item) => total + item.size, 0) > MAX_TOTAL_SIZE) {
-          setFileError('The combined size of your files must be 90 MB or less.');
-          continue;
-        }
-        next.push(file);
-      }
-      setFiles(next);
-    }
-    event.target.value = '';
-  };
-
-  const removeFile = (index: number) => {
-    setFiles((current) => current.filter((_, fileIndex) => fileIndex !== index));
-    setFileError('');
   };
 
   const validate = () => {
@@ -222,28 +179,29 @@ export default function ProjectIntake() {
     if (submissionInFlight.current) return;
     submissionInFlight.current = true;
     setIsSubmitting(true);
-    setProgress(0);
-    const body = new FormData(event.currentTarget);
+    const body = new URLSearchParams();
+    for (const [key, value] of Object.entries(form)) {
+      if (Array.isArray(value)) {
+        value.forEach((choice: string) => body.append(key, choice));
+      } else {
+        body.append(key, typeof value === 'boolean' ? (value ? 'yes' : 'no') : value);
+      }
+    }
     body.append('_subject', `New website project inquiry — ${form.business.trim()}`);
-    files.forEach((file) => body.append('project_files', file, file.name));
     const request = new XMLHttpRequest();
     const finishRequest = () => {
       submissionInFlight.current = false;
       setIsSubmitting(false);
-      setProgress(null);
     };
     try {
       request.open('POST', PROJECT_INTAKE_ENDPOINT);
       request.setRequestHeader('Accept', 'application/json');
-      request.upload.addEventListener('progress', (progressEvent) => {
-        if (progressEvent.lengthComputable) setProgress(Math.min(100, Math.round((progressEvent.loaded / progressEvent.total) * 100)));
-      });
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
       request.addEventListener('load', () => {
         finishRequest();
         if (request.status >= 200 && request.status < 300) {
           setStatus('Thank you! Your project details have been received. I’ll review your information and contact you shortly to discuss your website.');
           setForm(initialForm);
-          setFiles([]);
           setErrors({});
           return;
         }
@@ -262,10 +220,10 @@ export default function ProjectIntake() {
       });
       request.addEventListener('timeout', () => {
         finishRequest();
-          setStatus('The submission timed out. Formspree requires uploads to finish within 30 seconds; try fewer or smaller files, then submit again.');
+        setStatus('The submission timed out. Your information is still here; please try again.');
       });
       request.timeout = 29000;
-      request.send(body);
+      request.send(body.toString());
     } catch {
       finishRequest();
       setStatus('The submission service address is not valid. Your information is still here; please contact the studio while the endpoint is checked.');
@@ -286,7 +244,7 @@ export default function ProjectIntake() {
           <p className="mb-5 text-[10px] font-semibold uppercase tracking-[.2em] text-[#ad7d5e]">A considered start</p>
           <h2 className="serif text-[clamp(2.35rem,5vw,4rem)] leading-[1.08] tracking-[-.04em] text-[#294239]">Ready to Build Your Website?</h2>
           <p className="mx-auto mt-6 max-w-[710px] text-[14px] leading-7 text-[#697066]">
-            Liked one of my website concepts? Tell me about your business and what you need. Share your content, requirements, and brand assets so I can understand your project and prepare the right website for you.
+            Liked one of my website concepts? Tell me about your business, website goals and requirements. After submitting this form, you can send your logo and other website materials through WhatsApp or email.
           </p>
         </div>
 
@@ -301,7 +259,7 @@ export default function ProjectIntake() {
           </ol>
         </div>
 
-        <form method="POST" action={PROJECT_INTAKE_ENDPOINT} encType="multipart/form-data" onSubmit={submit} noValidate className="space-y-6" data-testid="form-project-intake">
+        <form method="POST" action={PROJECT_INTAKE_ENDPOINT} onSubmit={submit} noValidate className="space-y-6" data-testid="form-project-intake">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#34473d]/15 pb-3">
             <p className="text-[11px] text-[#7a796d]">Fields marked <span className="text-[#ad7d5e]">*</span> are required</p>
             <span className="eyebrow text-[8px] text-[#a2795d]">Project intake / Ishii Web Studio</span>
@@ -381,22 +339,20 @@ export default function ProjectIntake() {
           </fieldset>
 
           <fieldset className="border border-[#34473d]/15 bg-[#eae7dc]/55 p-5 md:p-8">
-            <legend className="px-2"><span className="serif text-[23px] text-[#34473d]">06 / Content & files</span></legend>
-            <p className="mb-5 mt-1 max-w-[700px] text-[12px] leading-5 text-[#77786c]">Share your logo, product or service images, menu/catalogue, brand photos, text documents, price lists or other project files.</p>
-            <input ref={inputRef} name="project_files" type="file" multiple accept={ACCEPTED_EXTENSIONS} onChange={addFiles} className="sr-only" aria-label="Choose project files" />
-            <button type="button" onClick={() => inputRef.current?.click()} disabled={isSubmitting || files.length >= MAX_FILES} className="flex w-full flex-col items-center justify-center border border-dashed border-[#345046]/35 bg-[#f8f5ee]/60 px-5 py-8 text-center transition-colors hover:border-[#345046] hover:bg-[#f8f5ee] disabled:cursor-not-allowed disabled:opacity-60">
-              <Paperclip size={18} className="mb-3 text-[#a8785b]" />
-              <span className="text-[12px] font-medium text-[#34473d]">Upload your logo, brand photos and project files</span>
-              <span className="mt-2 max-w-[630px] text-[10px] leading-5 text-[#858579]">Allowed: {ACCEPTED_TYPES}. Up to 10 files, 25 MB each, and 90 MB combined per submission. Uploads must finish within 30 seconds.</span>
-            </button>
-            {fileError && <p role="alert" className="mt-3 text-[11px] leading-5 text-[#9b4f3f]">{fileError}</p>}
-            {files.length > 0 && <ul className="mt-4 space-y-2" aria-label="Selected files">
-              {files.map((file, index) => <li key={`${file.name}-${file.lastModified}-${index}`} className="flex items-center justify-between gap-3 border border-[#34473d]/12 bg-[#f8f5ee]/70 px-3 py-2.5">
-                <div className="flex min-w-0 items-center gap-3"><FileText size={15} className="shrink-0 text-[#a8785b]" /><span className="truncate text-[11px] text-[#4f5b51]">{file.name}</span><span className="shrink-0 text-[10px] text-[#858579]">{(file.size / (1024 * 1024)).toFixed(2)} MB · Ready</span></div>
-                <button type="button" onClick={() => removeFile(index)} disabled={isSubmitting} aria-label={`Remove ${file.name}`} className="flex h-8 w-8 shrink-0 items-center justify-center text-[#727368] transition-colors hover:text-[#9b4f3f] disabled:opacity-50"><X size={15} /></button>
-              </li>)}
-            </ul>}
-            <p className="mt-4 text-[10px] leading-5 text-[#858579]">Please share only files you have permission to provide. Files are sent to Formspree with your brief and may be stored in the studio’s Formspree account.</p>
+            <legend className="px-2"><span className="serif text-[23px] text-[#34473d]">06 / Project Materials</span></legend>
+            <p className="mb-6 mt-1 max-w-[700px] text-[12px] leading-6 text-[#77786c]">
+              After submitting this form, please send your logo, business photos, product/service images, menu/catalogue, documents, or other website materials through WhatsApp or email.
+            </p>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <a href={whatsappUrl} target="_blank" rel="noreferrer" className="group inline-flex min-h-12 items-center justify-between gap-4 bg-[#345046] px-5 py-4 text-[12px] font-medium text-[#f5f1e8] transition-colors hover:bg-[#263b33]" data-testid="link-project-materials-whatsapp">
+                <span className="inline-flex items-center gap-2"><MessageCircle size={16} aria-hidden="true" />Send Files on WhatsApp</span>
+                <ArrowUpRight size={15} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+              </a>
+              <a href={materialsEmailUrl} className="group inline-flex min-h-12 items-center justify-between gap-4 border border-[#345046] px-5 py-4 text-[12px] font-medium text-[#345046] transition-colors hover:bg-[#345046]/[.06]" data-testid="link-project-materials-email">
+                <span className="inline-flex items-center gap-2"><Mail size={16} aria-hidden="true" />Send Files by Email</span>
+                <ArrowUpRight size={15} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+              </a>
+            </div>
           </fieldset>
 
           <fieldset className="border border-[#34473d]/15 bg-[#eae7dc]/55 p-5 md:p-8">
@@ -422,18 +378,13 @@ export default function ProjectIntake() {
           <div className="border border-[#34473d]/15 bg-[#eae7dc]/55 p-5 md:p-8">
             <label className="flex cursor-pointer items-start gap-3">
               <input name="confirmation" value="yes" required type="checkbox" checked={form.confirmation} onChange={(event) => update('confirmation', event.target.checked)} aria-invalid={!!errors.confirmation} aria-describedby={errors.confirmation ? 'intake-confirmation-error' : 'intake-privacy-note'} className="mt-1 h-4 w-4 accent-[#345046]" />
-              <span className="text-[12px] leading-6 text-[#566258]">I confirm that the information and files I provide are related to my business/project and may be used to prepare my website proposal and project. <span className="text-[#ad7d5e]">*</span></span>
+              <span className="text-[12px] leading-6 text-[#566258]">I confirm that the information I provide is related to my business/project and may be used to prepare my website proposal and project. <span className="text-[#ad7d5e]">*</span></span>
             </label>
             {errors.confirmation && <p id="intake-confirmation-error" role="alert" className="ml-7 mt-2 text-[11px] text-[#9b4f3f]">{errors.confirmation}</p>}
-            <p id="intake-privacy-note" className="ml-7 mt-3 text-[10px] leading-5 text-[#858579]">Your information and files are sent through Formspree to the studio for this project inquiry. Please do not upload passwords, payment card information, or other highly sensitive personal information.</p>
+            <p id="intake-privacy-note" className="ml-7 mt-3 text-[10px] leading-5 text-[#858579]">Your form information is sent through Formspree to the studio for this project inquiry. Please do not enter passwords, payment card information, or other highly sensitive personal information.</p>
           </div>
 
           {status && <div role="status" aria-live="polite" className={`border-l-2 px-5 py-4 text-[12px] leading-6 ${status.startsWith('Thank you') ? 'border-[#345046] bg-[#e5e9df] text-[#34473d]' : 'border-[#b17d5e] bg-[#eee5db] text-[#674d3e]'}`}>{status}</div>}
-          {isSubmitting && progress !== null && <div aria-live="polite" className="border border-[#34473d]/15 bg-[#eae7dc]/55 p-4 text-[11px] text-[#566258]">
-            <div className="mb-2 flex justify-between"><span>Uploading your project files</span><span>{progress}%</span></div>
-            <div className="h-1.5 overflow-hidden bg-[#345046]/10"><div className="h-full bg-[#345046] transition-[width]" style={{ width: `${progress}%` }} /></div>
-          </div>}
-
           <div className="flex flex-col gap-3 border-t border-[#34473d]/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
             <p className="max-w-[460px] text-[10px] leading-5 text-[#858579]">Take your time. You can leave optional details blank and we can work through the rest together.</p>
             <button type="submit" disabled={isSubmitting} className="group inline-flex min-h-12 items-center justify-between gap-8 bg-[#345046] px-6 py-4 text-left text-[12px] font-medium text-[#f5f1e8] transition-colors hover:bg-[#263b33] disabled:cursor-wait disabled:opacity-65">

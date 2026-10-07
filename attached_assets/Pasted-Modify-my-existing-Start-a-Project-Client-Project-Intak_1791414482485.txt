@@ -1,0 +1,100 @@
+Modify my existing "Start a Project" / "Client Project Intake" form.
+
+IMPORTANT:
+I am using the FREE Formspree plan, so the form must NOT contain any file upload functionality.
+
+Please make the following changes:
+
+1. REMOVE completely:
+- Logo upload
+- Brand photos upload
+- Product/service images upload
+- Menu/catalogue upload
+- Document upload
+- Any other file upload input
+- Any "Choose File", "Upload", drag-and-drop, attachment, or file picker UI
+- Any JavaScript related to file uploads
+- Any multipart/form-data requirement if it is only needed for file uploads
+
+2. KEEP the useful text/link fields:
+- Full Name
+- Business/Brand Name
+- Email
+- WhatsApp/Phone
+- Country
+- Preferred Contact Method
+- Business/Industry
+- Business Description
+- Services/Products/Offerings
+- Website Type
+- Required Pages
+- Existing Website
+- Main Website Goal
+- Instagram
+- Facebook
+- TikTok
+- Google Business
+- Other Social/Website Links
+- Brand Colors
+- Preferred Website Style
+- Website Features
+- Launch Date
+- Domain Status
+- Hosting Status
+- Budget
+- Additional Notes
+- Confirmation checkbox
+
+3. CHANGE the existing file-upload/content section into a professional
+"Project Materials" section.
+
+Use this text:
+
+"Project Materials"
+
+"After submitting this form, please send your logo, business photos, product/service images, menu/catalogue, documents, or other website materials through WhatsApp or email."
+
+Add two buttons/links:
+
+"Send Files on WhatsApp"
+"Send Files by Email"
+
+The WhatsApp button should open my existing studio WhatsApp number.
+The email button should open my existing studio email address.
+
+4. IMPORTANT:
+Do not create another Formspree form.
+Keep using my existing Formspree endpoint:
+https://formspree.io/f/moejelpy
+
+5. Keep the existing form submission functionality working exactly as it does now.
+
+6. Do NOT remove or break any existing useful fields.
+
+7. Remove any file-related validation, JavaScript, event listeners, preview logic, file size checks, upload progress, or upload error messages.
+
+8. Do NOT use localStorage or sessionStorage for storing client project information.
+
+9. Keep the existing design, typography, colors, animations, navigation, and responsive layout unless a small change is necessary for the modifications above.
+
+10. Make sure the form works properly on:
+- Desktop
+- Android
+- iPhone/Safari
+- Tablet
+
+11. After making the changes, test the form submission and confirm that:
+- Text fields are submitted to Formspree
+- No file upload is sent
+- WhatsApp button works
+- Email button works
+- There are no broken buttons or console errors
+
+12. Do not add any paid service or paid feature.
+
+Before finishing, give me a short summary of:
+- Which file you modified
+- What file-upload elements you removed
+- What fields remain
+- Where the WhatsApp and email buttons are connected
+- Whether the Formspree submission still works
