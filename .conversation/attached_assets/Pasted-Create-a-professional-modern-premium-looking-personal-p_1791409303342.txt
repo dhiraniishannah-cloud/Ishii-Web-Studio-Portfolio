@@ -1,0 +1,385 @@
+Create a professional, modern, premium-looking personal portfolio website for a freelance website designer who creates websites for small businesses using modern AI-assisted website development.
+
+IMPORTANT:
+This is a portfolio for getting clients. It should look like a real professional freelancer's portfolio, NOT like an AI-generated template.
+
+The portfolio should be simple, clean, elegant, fast, mobile-responsive, and focused on converting visitors into potential clients.
+
+TARGET CLIENTS:
+Small businesses such as:
+- Beauty salons
+- Restaurants and cafes
+- Clothing boutiques
+- Jewellery businesses
+- Perfume brands
+- Other local and small businesses
+
+I currently have 5 website projects to showcase:
+- 3 websites created using Notion AI and deployed on Netlify
+- 2 websites created using Replit
+
+Do NOT mention that these websites were created with AI unless necessary. Present them professionally as portfolio website concepts/projects.
+
+==================================================
+WEBSITE STRUCTURE
+==================================================
+
+1. NAVIGATION BAR
+
+Create a clean sticky navigation bar with:
+
+Logo/name:
+"ISHII WEB STUDIO"
+
+Navigation:
+Home
+Work
+Services
+About
+Contact
+
+CTA button:
+"Let's Work Together"
+
+On mobile, use a professional hamburger menu.
+
+==================================================
+2. HERO SECTION
+==================================================
+
+Create a visually impressive hero section.
+
+Main headline:
+
+"Modern Websites That Help Small Businesses Stand Out"
+
+Supporting text:
+
+"I design professional, mobile-friendly websites for growing businesses that want a stronger online presence and more customers."
+
+Buttons:
+
+"View My Work"
+"Let's Work Together"
+
+Add a subtle professional visual element showing website/interface previews or abstract web design elements.
+
+Do NOT make the hero overly complicated.
+
+==================================================
+3. TRUST / VALUE STRIP
+==================================================
+
+Add a small section below the hero with 3 or 4 points:
+
+"Mobile Responsive"
+"Modern Design"
+"Business-Focused"
+"Fast & Professional"
+
+Keep it visually clean.
+
+==================================================
+4. SELECTED WORK SECTION
+==================================================
+
+Section heading:
+
+"Selected Work"
+
+Subheading:
+
+"A selection of website concepts created for different types of businesses."
+
+Create 5 beautiful project cards.
+
+IMPORTANT:
+Do not call these "clients" because these are portfolio/demo projects.
+
+Use labels such as:
+"Website Concept"
+"Restaurant Website Concept"
+"Beauty Salon Website Concept"
+
+PROJECT 1:
+Name: Flourish Beauty Studio
+Category: Beauty Salon Website Concept
+Description:
+"A modern and elegant website concept designed for a beauty salon, featuring services, gallery, booking, contact information and WhatsApp integration."
+
+Button:
+"View Website"
+
+PROJECT 2:
+Name: Sanam Boutique
+Category: Clothing Boutique Website Concept
+Description:
+"A stylish boutique website concept designed to showcase clothing collections, brand identity and customer enquiries."
+
+Button:
+"View Website"
+
+PROJECT 3:
+Name: Israr Jewellery
+Category: Jewellery Website Concept
+Description:
+"A premium jewellery website concept designed to showcase jewellery collections and make it easy for customers to enquire through WhatsApp."
+
+Button:
+"View Website"
+
+PROJECT 4:
+Name: Kabab Ghar
+Category: Restaurant Website Concept
+Description:
+"A modern restaurant website concept focused on food presentation, menu browsing, location, contact and online enquiries."
+
+Button:
+"View Website"
+
+PROJECT 5:
+Name: Restaurant Website Concept
+Category: Restaurant Website Concept
+Description:
+"Another restaurant-focused website concept demonstrating a different visual style and business presentation."
+
+Button:
+"View Website"
+
+IMPORTANT:
+Create the project cards so that I can easily replace the placeholder links with my actual live website URLs later.
+
+For each project card, include:
+- Large website preview/image
+- Project name
+- Category
+- Short description
+- View Website button
+
+Make the cards visually impressive.
+
+==================================================
+5. SERVICES SECTION
+==================================================
+
+Heading:
+
+"What I Can Help Your Business With"
+
+Create 4 service cards:
+
+1. Business Websites
+"Professional websites designed to give your business a strong online presence."
+
+2. Mobile Responsive Design
+"Websites designed to work smoothly across phones, tablets and computers."
+
+3. WhatsApp & Contact Integration
+"Make it easy for customers to contact your business, ask questions and make enquiries."
+
+4. Website Updates & Maintenance
+"Keep your website updated with new services, products, images and business information."
+
+Do not claim advanced services such as custom apps, complex ecommerce, payment systems or advanced databases.
+
+==================================================
+6. WHY WORK WITH ME SECTION
+==================================================
+
+Heading:
+
+"Why Work With Me"
+
+Create 4 points:
+
+"Designed Around Your Business"
+"Mobile-Friendly"
+"Clean & Modern Design"
+"Clear Communication"
+
+Add a short paragraph explaining that each website is customized according to the business's brand, services and customers.
+
+==================================================
+7. SIMPLE PROCESS SECTION
+==================================================
+
+Heading:
+
+"How It Works"
+
+Show 4 simple steps:
+
+01 — Tell Me About Your Business
+02 — Choose Your Website Style
+03 — I Build & Refine Your Website
+04 — Launch Your Website
+
+Keep this section very simple and visual.
+
+==================================================
+8. ABOUT SECTION
+==================================================
+
+Heading:
+
+"A Little About Me"
+
+Use a professional but simple paragraph:
+
+"I'm a freelance website designer focused on helping small businesses build a professional online presence. I create modern, mobile-friendly websites that make it easier for customers to discover a business, explore its services and get in touch."
+
+Do not invent qualifications, years of experience, client numbers, awards or certifications.
+
+==================================================
+9. FINAL CTA SECTION
+==================================================
+
+Create a strong full-width CTA section.
+
+Heading:
+
+"Ready to Give Your Business a Better Online Presence?"
+
+Text:
+
+"Let's create a professional website that represents your business and makes it easier for customers to connect with you."
+
+Buttons:
+
+"Start a Project"
+"View My Work"
+
+==================================================
+10. CONTACT SECTION
+==================================================
+
+Heading:
+
+"Let's Work Together"
+
+Include:
+
+WhatsApp
+Email
+Instagram
+
+Make each one clickable.
+
+For now, use clearly marked placeholder values that I can easily replace with my real contact details.
+
+Also include a simple contact form with:
+
+Name
+Email
+Business Name
+Message
+
+Button:
+"Send Message"
+
+IMPORTANT:
+If a real backend is not configured, do not pretend that the form stores messages. Make it clear in the code where I can later connect a form service or backend.
+
+==================================================
+11. FOOTER
+==================================================
+
+Include:
+
+ISHII WEB STUDIO
+
+"Modern websites for growing businesses."
+
+Links:
+Home
+Work
+Services
+About
+Contact
+
+Social links:
+WhatsApp
+Instagram
+Email
+
+Copyright:
+"© 2026 Ishii Web Studio. All rights reserved."
+
+==================================================
+DESIGN REQUIREMENTS
+==================================================
+
+Design style:
+
+- Premium
+- Minimal
+- Modern
+- Professional
+- Elegant
+- Lots of whitespace
+- Strong typography
+- Smooth animations
+- High-quality visual hierarchy
+- Not overly flashy
+- Not childish
+- Not generic AI-template looking
+
+Use a sophisticated neutral color palette with one elegant accent color.
+
+Use rounded cards, subtle shadows and tasteful hover effects.
+
+Typography should feel premium and professional.
+
+The portfolio itself should demonstrate my web design ability, so make the design polished.
+
+==================================================
+TECHNICAL REQUIREMENTS
+==================================================
+
+- Fully responsive
+- Desktop optimized
+- Tablet optimized
+- Mobile optimized
+- Test navigation on mobile
+- Hamburger menu must work
+- All buttons must work
+- Smooth scrolling
+- No broken links
+- No unnecessary libraries
+- Fast loading
+- SEO-friendly title and meta description
+- Proper favicon placeholder
+- Accessible buttons and navigation
+- Clean, organized code
+- Easy for a beginner to edit
+
+IMPORTANT:
+Create a clearly marked configuration section/file where I can easily change:
+
+1. My name/studio name
+2. WhatsApp number
+3. Email
+4. Instagram URL
+5. Project URLs
+6. Project preview images
+7. Social media links
+
+Do not hard-code these values throughout the project.
+
+==================================================
+MOST IMPORTANT
+==================================================
+
+The website's main purpose is CLIENT ACQUISITION.
+
+A potential business owner should immediately understand:
+
+WHO I AM
+WHAT I DO
+WHAT TYPES OF BUSINESSES I HELP
+WHAT MY WORK LOOKS LIKE
+HOW THEY CAN CONTACT ME
+
+Do not add unnecessary features.
+
+Make the final result look like a professional freelance web designer portfolio that I can confidently send to potential clients.
