@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { ArrowRight, ArrowUpRight, Check, Menu, X } from 'lucide-react';
 import { projects, studioContact, studioName } from './projects';
+import ProjectIntake from './components/ProjectIntake';
 
 const phoneForLink = `https://wa.me/92${studioContact.whatsapp.replace(/^0/, '')}`;
 
@@ -12,6 +13,7 @@ function Header() {
     ['Services', '#services'],
     ['About', '#about'],
     ['Contact', '#contact'],
+    ['Start a Project', '#project-intake'],
   ];
   return (
     <header className="sticky top-0 z-40 border-b border-[#34473d]/10 bg-[#f5f1e8]/90 backdrop-blur-xl">
@@ -270,7 +272,7 @@ function FinalCTA() {
           <p className="mt-5 max-w-[570px] text-[14px] leading-7 text-[#727368]">A professional website can help people discover your business, understand what you offer and get in touch. Let’s talk about what would work for you.</p>
         </div>
         <div className="flex flex-wrap gap-3 md:flex-col">
-          <a href="#contact" className="group inline-flex items-center justify-between gap-7 bg-[#345046] px-5 py-4 text-[11px] font-medium text-[#f5f1e8] transition-colors hover:bg-[#263b33]" data-testid="link-final-start">Start a Project <ArrowUpRight size={14} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a>
+          <a href="#project-intake" className="group inline-flex items-center justify-between gap-7 bg-[#345046] px-5 py-4 text-[11px] font-medium text-[#f5f1e8] transition-colors hover:bg-[#263b33]" data-testid="link-final-start">Start Your Project <ArrowUpRight size={14} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a>
           <a href="#work" className="inline-flex items-center justify-between gap-7 border border-[#345046]/40 px-5 py-4 text-[11px] font-medium text-[#345046] transition-colors hover:border-[#345046] hover:bg-[#345046]/5" data-testid="link-final-work">View My Work <ArrowRight size={14} /></a>
         </div>
       </div>
@@ -317,7 +319,7 @@ function Contact() {
 }
 
 function Footer() {
-  const links = [['Home', '#top'], ['Work', '#work'], ['Services', '#services'], ['About', '#about'], ['Contact', '#contact']];
+  const links = [['Home', '#top'], ['Work', '#work'], ['Services', '#services'], ['About', '#about'], ['Contact', '#contact'], ['Start a Project', '#project-intake']];
   return <footer className="bg-[#263b33] py-8 text-[#f1ede4]">
     <div className="page-wrap flex flex-col gap-7">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
@@ -346,7 +348,7 @@ function App() {
   return <div className="min-h-[100dvh] overflow-hidden">
     <div className="grain" aria-hidden="true" />
     <Header />
-    <main><Hero /><TrustStrip /><About /><Portfolio onPreview={showPreview} /><WhyWorkWithMe /><Services /><Process /><FinalCTA /><Contact /></main>
+    <main><Hero /><TrustStrip /><About /><Portfolio onPreview={showPreview} /><WhyWorkWithMe /><Services /><Process /><FinalCTA /><ProjectIntake /><Contact /></main>
     <Footer />
     {preview && <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#20362e]/55 p-5 backdrop-blur-sm" role="presentation" onClick={() => setPreview(null)}>
       <section role="dialog" aria-modal="true" aria-labelledby="preview-title" className="relative w-full max-w-md border border-[#d9cbb6] bg-[#f5f1e8] p-7 shadow-2xl md:p-9" onClick={event => event.stopPropagation()}>

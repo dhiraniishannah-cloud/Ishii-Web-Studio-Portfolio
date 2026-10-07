@@ -1,0 +1,1 @@
+- [Portfolio concepts & intake truthfulness](portfolio-truthfulness.md) — Treat concepts as demos, and project submissions as unavailable until a real file-capable endpoint is configured and verified.
