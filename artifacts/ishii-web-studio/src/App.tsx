@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type ReactNode } from 'react';
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { ArrowRight, ArrowUpRight, Check, Menu, X } from 'lucide-react';
 import { projects, studioContact, studioName } from './projects';
 import ProjectIntake from './components/ProjectIntake';
@@ -377,6 +377,30 @@ function Footer() {
 function App() {
   const [preview, setPreview] = useState<{ name: string } | null>(null);
   const showPreview = (name: string) => setPreview({ name });
+
+  useEffect(() => {
+    let frame = 0;
+    const scrollToHashTarget = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        let id: string;
+        try {
+          id = decodeURIComponent(window.location.hash.slice(1));
+        } catch {
+          return;
+        }
+        if (!id) return;
+        document.getElementById(id)?.scrollIntoView({ block: 'start', behavior: 'instant' });
+      });
+    };
+    scrollToHashTarget();
+    window.addEventListener('hashchange', scrollToHashTarget);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('hashchange', scrollToHashTarget);
+    };
+  }, []);
+
   return <div className="min-h-[100dvh] overflow-hidden">
     <div className="grain" aria-hidden="true" />
     <Header />

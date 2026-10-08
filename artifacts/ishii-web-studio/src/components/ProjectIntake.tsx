@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
+import { useRef, useState, type FormEvent, type ReactNode } from 'react';
 import { ArrowRight, ArrowUpRight, Mail, MessageCircle } from 'lucide-react';
 import { studioContact, studioName } from '../projects';
 
@@ -118,14 +118,6 @@ export default function ProjectIntake() {
   const [status, setStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submissionInFlight = useRef(false);
-
-  useEffect(() => {
-    if (window.location.hash !== '#project-intake') return;
-    const frame = requestAnimationFrame(() => {
-      document.getElementById('project-intake')?.scrollIntoView({ block: 'start', behavior: 'instant' });
-    });
-    return () => cancelAnimationFrame(frame);
-  }, []);
 
   const update = <K extends keyof IntakeForm>(key: K, value: IntakeForm[K]) => {
     setForm((previous) => ({ ...previous, [key]: value }));
