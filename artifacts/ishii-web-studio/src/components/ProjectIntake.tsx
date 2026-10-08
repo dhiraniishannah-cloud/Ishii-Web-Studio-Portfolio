@@ -344,7 +344,7 @@ export default function ProjectIntake() {
               After submitting this form, please send your logo, business photos, product/service images, menu/catalogue, documents, or other website materials through WhatsApp or email.
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
-              <a href={whatsappUrl} target="_blank" rel="noreferrer" className="group inline-flex min-h-12 items-center justify-between gap-4 bg-[#345046] px-5 py-4 text-[12px] font-medium text-[#f5f1e8] transition-colors hover:bg-[#263b33]" data-testid="link-project-materials-whatsapp">
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="group inline-flex min-h-12 items-center justify-between gap-4 bg-[#345046] px-5 py-4 text-[12px] font-medium text-[#f5f1e8] transition-colors hover:bg-[#263b33]" data-testid="link-project-materials-whatsapp">
                 <span className="inline-flex items-center gap-2"><MessageCircle size={16} aria-hidden="true" />Send Files on WhatsApp</span>
                 <ArrowUpRight size={15} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
               </a>

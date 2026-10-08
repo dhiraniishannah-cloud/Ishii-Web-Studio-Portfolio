@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, type FormEvent, type ReactNode } from 'react';
 import { ArrowRight, ArrowUpRight, Check, Menu, X } from 'lucide-react';
 import { projects, studioContact, studioName } from './projects';
 import ProjectIntake from './components/ProjectIntake';
@@ -186,7 +186,42 @@ function ProjectArt({ kind, initials, accent }: { kind: string; initials: string
   </div>;
 }
 
-function Portfolio({ onPreview }: { onPreview: (name: string, url: string) => void }) {
+function getProjectDestination(url: string) {
+  if (!url.trim()) return null;
+  try {
+    const destination = new URL(url.trim());
+    if ((destination.protocol !== 'https:' && destination.protocol !== 'http:') || !destination.hostname) return null;
+    return destination.href;
+  } catch {
+    return null;
+  }
+}
+
+function ProjectAction({
+  name,
+  url,
+  onPreview,
+  className,
+  ariaLabel,
+  testId,
+  children,
+}: {
+  name: string;
+  url: string;
+  onPreview: (name: string) => void;
+  className: string;
+  ariaLabel: string;
+  testId: string;
+  children: ReactNode;
+}) {
+  const destination = getProjectDestination(url);
+  if (destination) {
+    return <a href={destination} target="_blank" rel="noopener noreferrer" className={className} aria-label={ariaLabel} data-testid={testId}>{children}</a>;
+  }
+  return <button type="button" onClick={() => onPreview(name)} className={className} aria-label={ariaLabel} data-testid={testId}>{children}</button>;
+}
+
+function Portfolio({ onPreview }: { onPreview: (name: string) => void }) {
   return <section id="work" className="bg-[#eae7dc] py-24 md:py-32">
     <div className="page-wrap">
       <div className="mb-12 flex flex-col justify-between gap-6 md:mb-16 md:flex-row md:items-end">
@@ -195,20 +230,20 @@ function Portfolio({ onPreview }: { onPreview: (name: string, url: string) => vo
       </div>
       <div className="grid gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project, index) => <article key={project.name} className={`project-card group ${project.visual === 'perfume' ? 'sm:col-span-2 lg:col-span-1' : ''}`} data-testid={`card-project-${index + 1}`}>
-          <button type="button" onClick={() => onPreview(project.name, project.url)} className={`relative block w-full overflow-hidden text-left ${project.visual === 'perfume' ? 'aspect-[1.24]' : 'aspect-[1.29]'}`} aria-label={`View ${project.name} website concept`} data-testid={`button-preview-${index + 1}`}>
+          <ProjectAction name={project.name} url={project.url} onPreview={onPreview} className={`relative block w-full overflow-hidden text-left ${project.visual === 'perfume' ? 'aspect-[1.24]' : 'aspect-[1.29]'}`} ariaLabel={`View ${project.name} website concept`} testId={`button-preview-${index + 1}`}>
             {project.image
               ? <img src={project.image} alt={`${project.name} website concept preview`} className="absolute inset-0 h-full w-full object-cover" />
               : <ProjectArt kind={project.visual} initials={project.initials} accent={project.accent} />}
             <span className={`absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/55 bg-[#f5f1e8]/80 text-[#34473d] transition-transform group-hover:rotate-45 ${project.visual === 'perfume' ? 'text-[#684e39]' : ''}`}><ArrowUpRight size={15} /></span>
-          </button>
+          </ProjectAction>
           <div className="flex items-start justify-between gap-3 pt-5">
             <div><p className="eyebrow text-[9px] text-[#a2795d]">{project.category}</p><h3 className={`serif mt-2 text-[23px] leading-tight text-[#294239] ${project.visual === 'perfume' ? 'tracking-[-.02em]' : ''}`}>{project.name}</h3></div>
             <span className="mt-1 text-[10px] text-[#939184]">0{index + 1}</span>
           </div>
           <p className="mt-3 max-w-[370px] text-[12px] leading-[1.75] text-[#6f7166]">{project.description}</p>
-          <button type="button" onClick={() => onPreview(project.name, project.url)} className={`mt-4 inline-flex items-center gap-2 border-b border-[#345046]/40 pb-1 text-[11px] font-medium text-[#345046] transition-colors hover:border-[#b77e5e] hover:text-[#a26e50]`} data-testid={`button-view-${index + 1}`}>
+          <ProjectAction name={project.name} url={project.url} onPreview={onPreview} className="mt-4 inline-flex items-center gap-2 border-b border-[#345046]/40 pb-1 text-[11px] font-medium text-[#345046] transition-colors hover:border-[#b77e5e] hover:text-[#a26e50]" ariaLabel={`View ${project.name} website concept`} testId={`button-view-${index + 1}`}>
             View Website <ArrowUpRight size={12} />
-          </button>
+          </ProjectAction>
         </article>)}
       </div>
       <div className="mt-14 border-t border-[#34473d]/15 pt-5">
@@ -299,7 +334,7 @@ function Contact() {
         <h2 className="serif max-w-[410px] text-4xl leading-[1.1] tracking-[-.035em] text-[#294239] md:text-[3.55rem]">Tell me a little about what you have in mind.</h2>
         <p className="mt-6 max-w-[350px] text-[13px] leading-6 text-[#727368]">A few details are plenty to start a conversation. You can also reach me directly by WhatsApp or email.</p>
         <div className="mt-9 space-y-4">
-          <a href={phoneForLink} target="_blank" rel="noreferrer" className="group flex items-center justify-between border-t border-[#34473d]/20 py-4 text-[12px] text-[#34473d]" data-testid="link-whatsapp"><span>WhatsApp</span><span className="inline-flex items-center gap-2 text-[#77786c] transition-colors group-hover:text-[#ad7d5e]">{studioContact.whatsapp}<ArrowUpRight size={13} /></span></a>
+          <a href={phoneForLink} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between border-t border-[#34473d]/20 py-4 text-[12px] text-[#34473d]" data-testid="link-whatsapp"><span>WhatsApp</span><span className="inline-flex items-center gap-2 text-[#77786c] transition-colors group-hover:text-[#ad7d5e]">{studioContact.whatsapp}<ArrowUpRight size={13} /></span></a>
           <a href={`mailto:${studioContact.email}`} className="group flex items-center justify-between border-t border-[#34473d]/20 py-4 text-[12px] text-[#34473d]" data-testid="link-email"><span>Email</span><span className="inline-flex items-center gap-2 text-[#77786c] transition-colors group-hover:text-[#ad7d5e]">{studioContact.email}<ArrowUpRight size={13} /></span></a>
         </div>
       </div>
@@ -330,7 +365,7 @@ function Footer() {
       </div>
       <div className="flex flex-col gap-4 border-t border-white/15 pt-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap gap-x-6 gap-y-2 text-[10px] text-[#dfc2a9]">
-          <a href={phoneForLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-white" data-testid="link-footer-whatsapp">WhatsApp · {studioContact.whatsapp}<ArrowUpRight size={11} /></a>
+          <a href={phoneForLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-white" data-testid="link-footer-whatsapp">WhatsApp · {studioContact.whatsapp}<ArrowUpRight size={11} /></a>
           <a href={`mailto:${studioContact.email}`} className="inline-flex items-center gap-2 hover:text-white" data-testid="link-footer-email">{studioContact.email}<ArrowUpRight size={11} /></a>
         </div>
         <p className="text-[10px] text-[#c4c9bc]">© {new Date().getFullYear()} {studioName}</p>
@@ -340,11 +375,8 @@ function Footer() {
 }
 
 function App() {
-  const [preview, setPreview] = useState<{ name: string; url: string } | null>(null);
-  const showPreview = (name: string, url: string) => {
-    if (url) window.open(url, '_blank', 'noopener,noreferrer');
-    else setPreview({ name, url });
-  };
+  const [preview, setPreview] = useState<{ name: string } | null>(null);
+  const showPreview = (name: string) => setPreview({ name });
   return <div className="min-h-[100dvh] overflow-hidden">
     <div className="grain" aria-hidden="true" />
     <Header />
@@ -355,7 +387,7 @@ function App() {
         <button type="button" onClick={() => setPreview(null)} aria-label="Close project note" className="absolute right-5 top-5 p-1 text-[#596258] hover:text-[#b77e5e]" data-testid="button-close-preview"><X size={18} /></button>
         <p className="eyebrow mb-4 text-[#ad7d5e]">Independent concept</p>
         <h2 id="preview-title" className="serif pr-8 text-3xl text-[#294239]">{preview.name}</h2>
-        <p className="mt-4 text-[13px] leading-6 text-[#727368]">A live preview link has not been supplied for this concept. Project links can be added in the portfolio configuration when available.</p>
+        <p className="mt-4 text-[13px] leading-6 text-[#727368]">A working live preview URL has not been configured for this concept. Add its full http:// or https:// address to this project’s url field in the portfolio configuration.</p>
         <button type="button" onClick={() => setPreview(null)} className="mt-7 inline-flex items-center gap-2 bg-[#345046] px-5 py-3 text-[11px] text-[#f5f1e8] hover:bg-[#263b33]" data-testid="button-dismiss-preview">Close <X size={13} /></button>
       </section>
     </div>}
